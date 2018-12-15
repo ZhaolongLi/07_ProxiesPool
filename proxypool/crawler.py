@@ -181,3 +181,16 @@ class Crawler(object,metaclass=ProxyMetaclass):
                 result = address + ':' + port
                 yield result.replace(' ', '')
 
+    def crawl_xdaili(self):
+        """
+        讯代理
+        :return:
+        """
+        url = '' # 购买订单后获取API地址
+        html = get_page(url)
+        if html:
+            result = json.loads(html)
+            proxies = result.get('RESULT')
+            for proxy in proxies:
+                yield proxy.get('ip') + ':' + proxy.get('port')
+
